@@ -17,6 +17,10 @@
 
     <properties>
         <java.version>21</java.version>
+        <docker-image-name>hashing-app</docker-image-name>
+        <docker-image-version>latest</docker-image-version>
+        <docker-maven.version>0.45.0</docker-maven.version>
+        <docker-registry>ghcr.io/mrgraversen</docker-registry>
     </properties>
 
     <dependencies>
@@ -61,6 +65,28 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven.version}</version>
+                <configuration>
+                    <buildArgs>
+                        <JAR_FILE>maven/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                    <images>
+                        <image>
+                            <name>${docker-registry}/${docker-image-name}:${docker-image-version}</name>
+                            <build>
+                                <contextDir>${basedir}</contextDir>
+                                <dockerFile>${basedir}/../JRE21.Dockerfile</dockerFile>
+                                <assembly>
+                                    <descriptorRef>artifact-with-dependencies</descriptorRef>
+                                </assembly>
+                            </build>
+                        </image>
+                    </images>
                 </configuration>
             </plugin>
         </plugins>
