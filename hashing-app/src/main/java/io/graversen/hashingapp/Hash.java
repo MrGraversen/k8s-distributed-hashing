@@ -1,11 +1,15 @@
 package io.graversen.hashingapp;
 
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NonNull;
-import lombok.Value;
+import lombok.extern.jackson.Jacksonized;
 
-@Value
+@Getter
+@Builder
+@Jacksonized
 public class Hash {
-    @NonNull String hash;
-    @NonNull HashType type;
-    @NonNull Integer rounds;
+    private final @NonNull String hash;
+    private final @NonNull HashType type;
+    private final @NonNull Integer rounds;
 }

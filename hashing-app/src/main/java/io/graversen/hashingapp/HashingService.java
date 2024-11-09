@@ -2,23 +2,21 @@ package io.graversen.hashingapp;
 
 import lombok.NonNull;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.time.Duration;
-import java.time.Instant;
 
 @Service
 public class HashingService {
+    @Cacheable(value = "hashes", key = "#text + '-' + #type + '-' + #rounds")
     public Hash createHash(@NonNull String text, @NonNull HashType type, int rounds) {
         rounds = Math.max(rounds, 1);
         String hash = text;
 
-        final var startedAt = Instant.now();
         for (int i = 0; i < rounds; i++) {
             hash = applyHash(hash, type);
         }
-        final var latency = Duration.between(startedAt, Instant.now());
-        return new Hash(hash, type, rounds, latency);
+
+        return new Hash(hash, type, rounds);
     }
 
     private String applyHash(@NonNull String text, HashType hash) {

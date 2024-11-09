@@ -7,7 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Getter
 @Builder
 @Jacksonized
-    public class CreateHashRequestDTO {
+public class CreateHashRequestDTO {
     private final String text;
     private final HashType type;
     private final int rounds;
