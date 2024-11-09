@@ -13,4 +13,5 @@ public class CreateHashResponseDTO {
     private final @NonNull HashType type;
     private final @NonNull Integer rounds;
     private final @NonNull Duration latency;
+    private final @NonNull String servingNode;
 }

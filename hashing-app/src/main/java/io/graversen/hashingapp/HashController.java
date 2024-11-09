@@ -24,7 +24,8 @@ public class HashController {
                 hash.getHash(),
                 hash.getType(),
                 hash.getRounds(),
-                latency
+                latency,
+                Utils.getHostname()
         );
 
         return ResponseEntity.ok(response);
