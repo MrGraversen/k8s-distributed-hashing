@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hashing-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hashing-app
+  template:
+    metadata:
+      labels:
+        app: hashing-app
+    spec:
+      containers:
+        - name: hashing-app
+          image: ghcr.io/mrgraversen/hashing-app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATA_REDIS_HOST
+              value: "redis"
+            - name: SPRING_REDIS_PORT
+              value: "6379"
