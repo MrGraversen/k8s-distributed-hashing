@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: hashing-app
+  cache:
+    type: REDIS
+  data:
+    redis:
+      host: localhost
+      port: 6379

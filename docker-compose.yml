@@ -1,0 +1,12 @@
+version: '3.8'
+
+name: k8s-distributed-hashing
+
+services:
+  k8s-distributed-hashing-redis:
+    image: redis:latest
+    container_name: k8s-distributed-hashing-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    command: ["redis-server", "--loglevel", "notice"]
